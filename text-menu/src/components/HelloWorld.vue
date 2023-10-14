@@ -2,14 +2,14 @@
   <v-container fluid="">
     <v-row>
       <!--for images-->
-      <v-col lg="6">
+      <v-col lg="6" md="6" sm="12">
         <v-card elevation="1">
 <!--          <v-img-->
 <!--          src="../assets/blank black menu.png">-->
 <!--          </v-img>-->
           <div id="image-frame" style="margin: 0; padding: 0">
             <div id="image-frame-menu">
-              <p>testing</p>
+              <h1 id="menu-font">{{ restaurant }}</h1>
             </div>
           </div>
 
@@ -33,18 +33,33 @@
       </v-col>
 
       <!--for fields-->
-      <v-col lg="6">
+      <v-col lg="6" md="6" sm="12">
         <v-card elevation="2">
           <v-form v-model="form" @submit.prevent="onSubmit">
             <v-container>
               <!--user name input-->
-              <v-text-field
-                v-model="restaurantText"
+              <RestaurantComponent
+                v-model="restaurant"
+                v-model:restaurant-name="restaurant"
+                :rules="[rules.counter]"
+                maxlength="16"
+                counter
+                variant="underlined"
+                hint="No More Than 16 Characters"
+                label="Your Restaurant Name Here"
+              />
+
+<!--              <v-text-field
+                v-model="title"
                 type="text"
+                @input=""
+                :rules="[rules.counter]"
+                maxlength="16"
+                counter
                 label="Your Restaurant Name Here"
                 variant="underlined"
-                hint="No more than 16 Characters">
-              </v-text-field>
+                hint="No more than 16 Characters"
+              ></v-text-field>-->
 
 
 
@@ -60,16 +75,15 @@
                 </v-item>
               </v-select>-->
 
-              <v-select
-                label="select thing"
+              <v-select return-object
+
                 placeholder="select..."
                 variant="outlined"
+                :items="positionList"
                 v-model="selectedTextPosition"
-                :items="positions"
-                item-text="textName"
-                return-object filled>
-              </v-select>
+              ></v-select>
 
+<!--              <p id="menu-font">Relaxing in basins at the end of inlets terminates the endless tests from the box</p>-->
               <!--font select-->
               <v-select
                 label="Select Font"
@@ -78,7 +92,7 @@
                 :items="fontList"
                 v-model="font"
               ></v-select>
-              <p id="menu-font">Relaxing in basins at the end of inlets terminates the endless tests from the box</p>
+
 
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -99,26 +113,21 @@
 
 <script>
 import {right} from "core-js/internals/array-reduce";
+import RestaurantComponent from './RestaurantComponent.vue'
 
 export default {
+  components: { RestaurantComponent },
   data () {
     return {
+      restaurant: '',
       font: "arial",
       fontList: ["Arial", "Calibri", "Roboto", "Times New Roman"],
-      selectedTextPosition: {
-        textName: 'Top',
-        textValue: 'flex-start'
-      },
-      positions: [{
-        textName: 'Top',
-        textValue: 'flex-start',
-      },{
-        textName: 'Middle',
-        textValue: 'center',
-      },{
-        textName: 'Bottom',
-        textValue: 'flex-end'
-      }]
+      selectedTextPosition: "center",
+      positionList: ["center", "flex-start", "flex-end"],
+
+      rules: {
+        counter: value => value.length <= 16 || 'Max 16 Characters'
+      }
     }
   }
 }
@@ -140,7 +149,7 @@ export default {
 
   display: flex;
   justify-content: center;
-  align-items: v-bind(position);
+  align-items: v-bind(selectedTextPosition);
 }
 
 #image-frame-menu{

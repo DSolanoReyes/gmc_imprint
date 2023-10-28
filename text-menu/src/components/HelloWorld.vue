@@ -9,7 +9,7 @@
 <!--          </v-img>-->
           <div id="image-frame" style="margin: 0; padding: 0">
             <div id="image-frame-menu">
-              <h1 id="menu-font">{{ restaurant }}</h1>
+              <h1 type="text" id="menu-font" >{{ restaurant }}</h1>
             </div>
           </div>
 
@@ -49,41 +49,15 @@
                 label="Your Restaurant Name Here"
               />
 
-<!--              <v-text-field
-                v-model="title"
-                type="text"
-                @input=""
-                :rules="[rules.counter]"
-                maxlength="16"
-                counter
-                label="Your Restaurant Name Here"
-                variant="underlined"
-                hint="No more than 16 Characters"
-              ></v-text-field>-->
-
-
-
               <!--location select-->
-<!--              <v-select
-                label="Select Location"
-                placeholder="Select..."
-                variant="outlined"
-
-              >
-                <v-item>
-                  water
-                </v-item>
-              </v-select>-->
-
               <v-select return-object
-
-                placeholder="select..."
+                placeholder="Select Text Location"
                 variant="outlined"
                 :items="positionList"
-                v-model="selectedTextPosition"
+                :item-props="positionProps"
+                v-model="positionList.value"
               ></v-select>
 
-<!--              <p id="menu-font">Relaxing in basins at the end of inlets terminates the endless tests from the box</p>-->
               <!--font select-->
               <v-select
                 label="Select Font"
@@ -93,6 +67,13 @@
                 v-model="font"
               ></v-select>
 
+              <v-select return-object
+                label="Select Menu Color"
+                placeholder="Select..."
+                variant="outlined"
+                :items="fontColors"
+                :item-props="itemProps"
+              ></v-select>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -120,13 +101,49 @@ export default {
   data () {
     return {
       restaurant: '',
-      font: "arial",
+      font: "Arial",
+      fontColors: [{
+        ID: "0", name: "Gold With Black", colour: "#AE9A37", src: "../assets/blank black menu.png"
+      },{
+        ID: "1", name: "Silver With Black", colour: "#827C7C", src: ""
+      },{
+        ID: "2", name: "Gold With Burgundy", colour: "#AE9A37", src: "../assets/blank burgandy menu.jpg"
+      },{
+        ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: ""
+      }],
+
       fontList: ["Arial", "Calibri", "Roboto", "Times New Roman"],
-      selectedTextPosition: "center",
-      positionList: ["center", "flex-start", "flex-end"],
+
+      positionList: [{
+        name: "Center Top", location: "flex-start"
+      },{
+        name: "Center", location: "center"
+      },{
+        name: "Center Bottom", location: "flex-end"
+      }],
 
       rules: {
         counter: value => value.length <= 16 || 'Max 16 Characters'
+      }
+    }
+  },
+  methods: {
+    itemProps (fontColors) {
+      return {
+        title: fontColors.name,
+      }
+    },
+    positionProps (positionList) {
+      return {
+        title: positionList.name,
+        value: positionList.location
+      }
+    },
+  },
+  computed: {
+    cssProps() {
+      return{
+        'color': this.fontColors.colour
       }
     }
   }
@@ -135,6 +152,7 @@ export default {
 
 <style>
 #menu-font{
+  /*background-color: var(--bg-hover-color);*/
   font-family: v-bind(font);
 }
 
@@ -149,7 +167,7 @@ export default {
 
   display: flex;
   justify-content: center;
-  align-items: v-bind(selectedTextPosition);
+  align-items: v-bind(positionList);
 }
 
 #image-frame-menu{

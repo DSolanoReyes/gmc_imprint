@@ -4,12 +4,10 @@
       <!--for images-->
       <v-col lg="6" md="6" sm="12">
         <v-card elevation="1">
-<!--          <v-img-->
-<!--          src="../assets/blank black menu.png">-->
-<!--          </v-img>-->
-          <div id="image-frame" style="margin: 0; padding: 0">
+          <div id="image-frame" :style="{ backgroundImage: `url(${selectedImage})` }"  style="margin: 0; padding: 0;)">
             <div id="image-frame-menu">
-              <h1 type="text" id="menu-font" >{{ restaurant }}</h1>
+              <h1 type="text" id="menu-font" style="color: #827C7C" v-if="fontColors.id === 1 || 3">{{ restaurant }}</h1>
+              <h1 type="text" id="menu-font" style="color: #AE9A37" v-else-if="fontColors.id === 0 || 2">{{ restaurant }}</h1>
             </div>
           </div>
 
@@ -49,13 +47,16 @@
                 label="Your Restaurant Name Here"
               />
 
+              {{position}}
+
               <!--location select-->
-              <v-select return-object
+              <v-select
                 placeholder="Select Text Location"
                 variant="outlined"
+                label="Select Location"
                 :items="positionList"
                 :item-props="positionProps"
-                v-model="positionList.value"
+                v-model="position"
               ></v-select>
 
               <!--font select-->
@@ -73,7 +74,9 @@
                 variant="outlined"
                 :items="fontColors"
                 :item-props="itemProps"
+                v-model="imageColor"
               ></v-select>
+
 
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -95,21 +98,28 @@
 <script>
 import {right} from "core-js/internals/array-reduce";
 import RestaurantComponent from './RestaurantComponent.vue'
-
+import blankblack from '/src/assets/blankblackmenu.png'
+import blankburgandy from '/src/assets/blankburgandymenu.jpg'
 export default {
   components: { RestaurantComponent },
+  mounted() {
+    this.selectedImage = this.blankblack
+  },
+
   data () {
     return {
       restaurant: '',
       font: "Arial",
+      position:"",
+      imageColor:"",
       fontColors: [{
-        ID: "0", name: "Gold With Black", colour: "#AE9A37", src: "../assets/blank black menu.png"
+        ID: "0", name: "Gold With Black", colour: "#AE9A37", src: "../assets/blankblackmenu.png"
       },{
-        ID: "1", name: "Silver With Black", colour: "#827C7C", src: ""
+        ID: "1", name: "Silver With Black", colour: "#827C7C", src: "../assets/blankblackmenu.png"
       },{
-        ID: "2", name: "Gold With Burgundy", colour: "#AE9A37", src: "../assets/blank burgandy menu.jpg"
+        ID: "2", name: "Gold With Burgundy", colour: "#AE9A37", src: "../assets/blankburgandymenu.jpg"
       },{
-        ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: ""
+        ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: "../assets/blankburgandymenu.jpg"
       }],
 
       fontList: ["Arial", "Calibri", "Roboto", "Times New Roman"],
@@ -121,7 +131,9 @@ export default {
       },{
         name: "Center Bottom", location: "flex-end"
       }],
-
+      blankblack,
+      blankburgandy,
+      selectedImage:null,
       rules: {
         counter: value => value.length <= 16 || 'Max 16 Characters'
       }
@@ -131,22 +143,20 @@ export default {
     itemProps (fontColors) {
       return {
         title: fontColors.name,
+        value: fontColors.ID
       }
+    },
+    ChangeImage(){
+
     },
     positionProps (positionList) {
       return {
         title: positionList.name,
         value: positionList.location
       }
-    },
-  },
-  computed: {
-    cssProps() {
-      return{
-        'color': this.fontColors.colour
-      }
     }
   }
+
 }
 </script>
 
@@ -157,17 +167,18 @@ export default {
 }
 
 #image-frame{
-  background-image: url("../assets/blank black menu.png");
+  //background-image: url("../assets/blankburgandymenu.jpg");
   height: 600px;
   width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  background-image: v-bind(selectedImage);
 
 
   display: flex;
   justify-content: center;
-  align-items: v-bind(positionList);
+  align-items: v-bind(position);
 }
 
 #image-frame-menu{

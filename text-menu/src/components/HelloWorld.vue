@@ -4,10 +4,10 @@
       <!--for images-->
       <v-col lg="6" md="6" sm="12">
         <v-card elevation="1">
-          <div id="image-frame" :style="{ backgroundImage: `url(${selectedImage})` }"  style="margin: 0; padding: 0;)">
+          <div id="image-frame" :style="{ backgroundImage: `url(${selectedImage.src})`}" style="margin: 0; padding: 0;)">
             <div id="image-frame-menu">
-              <h1 type="text" id="menu-font" style="color: #827C7C" v-if="fontColors.id === 1 || 3">{{ restaurant }}</h1>
-              <h1 type="text" id="menu-font" style="color: #AE9A37" v-else-if="fontColors.id === 0 || 2">{{ restaurant }}</h1>
+              <h1 type="text" id="menu-font" style="color: #827C7C" v-if="selectedImage.ID === '1' || selectedImage.ID === '3'">{{ restaurant }}</h1>
+              <h1 type="text" id="menu-font" style="color: #AE9A37" v-else-if="selectedImage.ID === '0' || selectedImage.ID === '2'">{{ restaurant }}</h1>
             </div>
           </div>
 
@@ -74,15 +74,30 @@
                 variant="outlined"
                 :items="fontColors"
                 :item-props="itemProps"
-                v-model="imageColor"
+                v-model="selectedImage"
+                @click="changeImage"
               ></v-select>
 
+              <h6>imagecolor.src</h6>
+              {{imageColor.src}}
+
+              <h6>imagecolor.id</h6>
+              {{imageColor.ID}}
+
+              <h6>selectedImage</h6>
+              {{selectedImage}}
+
+              <h6>selectedImage.src</h6>
+              {{selectedImage.src}}
+
+              <h6>selectedImage.ID</h6>
+              {{selectedImage.ID}}
 
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
                   color="primary"
-                  @click="submit">
+                  @click="">
                   Submit
                 </v-btn>
               </v-card-actions>
@@ -103,27 +118,31 @@ import blankburgandy from '/src/assets/blankburgandymenu.jpg'
 export default {
   components: { RestaurantComponent },
   mounted() {
-    this.selectedImage = this.blankblack
+    this.selectedImage = {ID: "0", name: "Gold With Black", colour: "#AE9A37", src: blankblack}
+    this.fontColors[2].src = blankburgandy
+    this.fontColors[3].src = blankburgandy
+    this.fontColors[0].src = blankblack
+    this.fontColors[1].src = blankblack
+    this.position = {name: "Center Top", location: "flex-start"}
   },
 
   data () {
     return {
-      restaurant: '',
+      restaurant: 'Fancy Restaurant',
       font: "Arial",
       position:"",
       imageColor:"",
       fontColors: [{
-        ID: "0", name: "Gold With Black", colour: "#AE9A37", src: "../assets/blankblackmenu.png"
+        ID: "0", name: "Gold With Black", colour: "#AE9A37", src: blankblack
       },{
-        ID: "1", name: "Silver With Black", colour: "#827C7C", src: "../assets/blankblackmenu.png"
+        ID: "1", name: "Silver With Black", colour: "#827C7C", src: blankblack
       },{
-        ID: "2", name: "Gold With Burgundy", colour: "#AE9A37", src: "../assets/blankburgandymenu.jpg"
+        ID: "2", name: "Gold With Burgundy", colour: "#AE9A37", src: blankburgandy
       },{
-        ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: "../assets/blankburgandymenu.jpg"
+        ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: blankburgandy
       }],
 
       fontList: ["Arial", "Calibri", "Roboto", "Times New Roman"],
-
       positionList: [{
         name: "Center Top", location: "flex-start"
       },{
@@ -131,9 +150,7 @@ export default {
       },{
         name: "Center Bottom", location: "flex-end"
       }],
-      blankblack,
-      blankburgandy,
-      selectedImage:null,
+      selectedImage: {src: blankblack},
       rules: {
         counter: value => value.length <= 16 || 'Max 16 Characters'
       }
@@ -143,11 +160,16 @@ export default {
     itemProps (fontColors) {
       return {
         title: fontColors.name,
+        src: fontColors.src,
         value: fontColors.ID
       }
     },
-    ChangeImage(){
-
+    changeImage (){
+      if (this.selectedImage.ID === 0 || this.selectedImage.ID === 1){
+        this.selectedImage = blankblack
+      } else if (this.selectedImage.ID === 2 || this.selectedImage.ID === 3){
+        this.selectedImage = blankburgandy
+      }
     },
     positionProps (positionList) {
       return {
@@ -162,18 +184,17 @@ export default {
 
 <style>
 #menu-font{
-  /*background-color: var(--bg-hover-color);*/
   font-family: v-bind(font);
 }
 
 #image-frame{
-  //background-image: url("../assets/blankburgandymenu.jpg");
   height: 600px;
   width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-image: v-bind(selectedImage);
+
 
 
   display: flex;

@@ -10,23 +10,6 @@
               <h1 type="text" id="menu-font" style="color: #AE9A37" v-else-if="selectedImage.ID === '0' || selectedImage.ID === '2'">{{ restaurant }}</h1>
             </div>
           </div>
-
-          <v-divider></v-divider>
-
-          <!--bottom buttons for images-->
-          <v-card-actions>
-            <v-btn
-              align="left"
-              prepend-icon="mdi-arrow-left">
-              Previous
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-btn
-              align="right"
-              append-icon="mdi-arrow-right">
-              Next
-            </v-btn>
-          </v-card-actions>
         </v-card>
       </v-col>
 
@@ -45,28 +28,35 @@
                 variant="underlined"
                 hint="No More Than 16 Characters"
                 label="Your Restaurant Name Here"
+                style="margin-bottom: 2%"
               />
 
-              {{position}}
+              <v-spacer></v-spacer>
 
               <!--location select-->
               <v-select
                 placeholder="Select Text Location"
                 variant="outlined"
                 label="Select Location"
+                style="margin-bottom: 2%"
                 :items="positionList"
                 :item-props="positionProps"
                 v-model="position"
               ></v-select>
+
+              <v-spacer></v-spacer>
 
               <!--font select-->
               <v-select
                 label="Select Font"
                 placeholder="Select..."
                 variant="outlined"
+                style="margin-bottom: 2%"
                 :items="fontList"
                 v-model="font"
               ></v-select>
+
+              <v-spacer></v-spacer>
 
               <v-select return-object
                 label="Select Menu Color"
@@ -77,30 +67,6 @@
                 v-model="selectedImage"
                 @click="changeImage"
               ></v-select>
-
-              <h6>imagecolor.src</h6>
-              {{imageColor.src}}
-
-              <h6>imagecolor.id</h6>
-              {{imageColor.ID}}
-
-              <h6>selectedImage</h6>
-              {{selectedImage}}
-
-              <h6>selectedImage.src</h6>
-              {{selectedImage.src}}
-
-              <h6>selectedImage.ID</h6>
-              {{selectedImage.ID}}
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="primary"
-                  @click="">
-                  Submit
-                </v-btn>
-              </v-card-actions>
             </v-container>
           </v-form>
         </v-card>
@@ -113,36 +79,39 @@
 <script>
 import {right} from "core-js/internals/array-reduce";
 import RestaurantComponent from './RestaurantComponent.vue'
-import blankblack from '/src/assets/blankblackmenu.png'
-import blankburgandy from '/src/assets/blankburgandymenu.jpg'
+import blackgoldcorners from '/src/assets/BlackGoldCorners.png'
+import blacksilvercorners from '/src/assets/BlackSilverCorners.png'
+import burgundygoldcorners from '/src/assets/BurgundyGoldCorners.png'
+import burgundysilvercorners from '/src/assets/BurgundySilverCorners.png'
 export default {
   components: { RestaurantComponent },
   mounted() {
-    this.selectedImage = {ID: "0", name: "Gold With Black", colour: "#AE9A37", src: blankblack}
-    this.fontColors[2].src = blankburgandy
-    this.fontColors[3].src = blankburgandy
-    this.fontColors[0].src = blankblack
-    this.fontColors[1].src = blankblack
+    this.selectedImage = {ID: "0", name: "Gold With Black", colour: "#AE9A37", src: blackgoldcorners}
+    this.fontColors[2].src = burgundygoldcorners
+    this.fontColors[3].src = burgundysilvercorners
+    this.fontColors[0].src = blackgoldcorners
+    this.fontColors[1].src = blacksilvercorners
     this.position = {name: "Center Top", location: "flex-start"}
   },
 
   data () {
     return {
       restaurant: 'Fancy Restaurant',
-      font: "Arial",
+      font: "Bradley Hand",
       position:"",
       imageColor:"",
       fontColors: [{
-        ID: "0", name: "Gold With Black", colour: "#AE9A37", src: blankblack
+        ID: "0", name: "Gold With Black", colour: "#AE9A37", src: blackgoldcorners
       },{
-        ID: "1", name: "Silver With Black", colour: "#827C7C", src: blankblack
+        ID: "1", name: "Silver With Black", colour: "#827C7C", src: blacksilvercorners
       },{
-        ID: "2", name: "Gold With Burgundy", colour: "#AE9A37", src: blankburgandy
+        ID: "2", name: "Gold With Burgundy", colour: "#AE9A37", src: burgundygoldcorners
       },{
-        ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: blankburgandy
+        ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: burgundysilvercorners
       }],
 
-      fontList: ["Arial", "Calibri", "Roboto", "Times New Roman"],
+      fontList: ["Bradley Hand", "Constantia Italic", "Elephant", "Harlow", "Juice", "Lucida Handwriting",
+        "Monotype Corsiva", "Pristina", "Script", "Viner Hand"],
       positionList: [{
         name: "Center Top", location: "flex-start"
       },{
@@ -150,7 +119,9 @@ export default {
       },{
         name: "Center Bottom", location: "flex-end"
       }],
-      selectedImage: {src: blankblack},
+
+      selectedImage: {src: blackgoldcorners},
+
       rules: {
         counter: value => value.length <= 16 || 'Max 16 Characters'
       }
@@ -165,10 +136,14 @@ export default {
       }
     },
     changeImage (){
-      if (this.selectedImage.ID === 0 || this.selectedImage.ID === 1){
-        this.selectedImage = blankblack
-      } else if (this.selectedImage.ID === 2 || this.selectedImage.ID === 3){
-        this.selectedImage = blankburgandy
+      if (this.selectedImage.ID === 0){
+        this.selectedImage = blackgoldcorners
+      } else if (this.selectedImage.ID === 1){
+        this.selectedImage = blacksilvercorners
+      } else if (this.selectedImage.ID === 2){
+        this.selectedImage = burgundygoldcorners
+      } else if (this.selectedImage.ID === 3){
+        this.selectedImage = burgundysilvercorners
       }
     },
     positionProps (positionList) {
@@ -203,7 +178,6 @@ export default {
 }
 
 #image-frame-menu{
-  background-color: red;
   height: 75px;
   width: 325px;
   text-align: center;

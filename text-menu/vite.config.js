@@ -44,6 +44,21 @@ export default defineConfig({
       '.vue',
     ],
   },
+  build: {
+    compress: {
+      // Enable gzip compression
+      gzip: true,
+
+      // Enable brotli compression
+      brotli: true,
+
+      // The level of compression to use (1-9, with 1 being the fastest and 9 being the best compression)
+      level: 9,
+
+      // The minimum size of a file to be compressed (in bytes)
+      threshold: 1024,
+    },
+  },
   server: {
     port: 3000,
   },

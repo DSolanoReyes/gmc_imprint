@@ -79,10 +79,10 @@
 <script>
 import {right} from "core-js/internals/array-reduce";
 import RestaurantComponent from './RestaurantComponent.vue'
-import blackgoldcorners from '/src/assets/BlackGoldCorners.png'
-import blacksilvercorners from '/src/assets/BlackSilverCorners.png'
-import burgundygoldcorners from '/src/assets/BurgundyGoldCorners.png'
-import burgundysilvercorners from '/src/assets/BurgundySilverCorners.png'
+import blackgoldcorners from '/src/assets/BlackGoldCorners.webp'
+import blacksilvercorners from '/src/assets/BlackSilverCorners.webp'
+import burgundygoldcorners from '/src/assets/BurgundyGoldCorners.webp'
+import burgundysilvercorners from '/src/assets/BurgundySilverCorners.webp'
 export default {
   components: { RestaurantComponent },
   mounted() {

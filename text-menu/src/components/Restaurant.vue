@@ -77,12 +77,12 @@
 </template>
 
 <script>
-import {right} from "core-js/internals/array-reduce";
 import RestaurantComponent from './RestaurantComponent.vue'
 import blackgoldcorners from '/src/assets/BlackGoldCorners.webp'
 import blacksilvercorners from '/src/assets/BlackSilverCorners.webp'
 import burgundygoldcorners from '/src/assets/BurgundyGoldCorners.webp'
 import burgundysilvercorners from '/src/assets/BurgundySilverCorners.webp'
+
 export default {
   components: { RestaurantComponent },
   mounted() {
@@ -184,4 +184,35 @@ export default {
   margin-top: 100px;
   margin-bottom: 100px;
 }
+
+@font-face {
+  font-family: "Bradley Hand";
+  src: url("@/assets/fonts/BRADHI.ttf");
+}
+
+@font-face {
+  font-family: "Constantia Italic";
+  src: url("@/assets/fonts/Constantia-Italic.ttf");
+}
+
+@font-face {
+  font-family: "Elephant";
+  src: url("@/assets/fonts/Elephant.ttf");
+}
+
+@font-face {
+  font-family: "Harlow";
+  src: url("@/assets/fonts/Harlow.ttf");
+}
+
+@font-face {
+  font-family: "Pristina";
+  src: url("@/assets/fonts/Pristina.ttf");
+}
+
+@font-face {
+  font-family: "Script";
+  src: url("@/assets/fonts/Script.ttf");
+}
+
 </style>

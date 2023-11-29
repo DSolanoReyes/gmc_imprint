@@ -1,7 +1,7 @@
 <template>
-  <HelloWorld />
+  <restaurant />
 </template>
 
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import restaurant from '@/components/Restaurant.vue'
 </script>

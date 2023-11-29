@@ -1,6 +1,6 @@
 <template>
   <v-app-bar style="background-color: #7C1617">
-    <img class="center" src="src/assets/greatmenubanner.jpg" alt="logo"/>
+    <img class="center" src="/src/assets/greatmenubanner.jpg" alt="logo"/>
   </v-app-bar>
 </template>
 

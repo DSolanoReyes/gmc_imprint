@@ -171,8 +171,6 @@ export default {
   background-position: center;
   background-image: v-bind(selectedImage);
 
-
-
   display: flex;
   justify-content: center;
   align-items: v-bind(position);

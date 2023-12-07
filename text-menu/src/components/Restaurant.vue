@@ -18,7 +18,7 @@
         <v-card elevation="2">
           <v-form v-model="form" @submit.prevent="onSubmit">
             <v-container>
-              <!--user name input-->
+              <!--user input-->
               <RestaurantComponent
                 v-model="restaurant"
                 v-model:restaurant-name="restaurant"
@@ -58,6 +58,7 @@
 
               <v-spacer></v-spacer>
 
+              <!--menu select-->
               <v-select return-object
                 label="Select Menu Color"
                 placeholder="Select..."
@@ -97,7 +98,7 @@ export default {
   data () {
     return {
       restaurant: 'Fancy Restaurant',
-      font: "Bradley Hand",
+      font: "Calligraffitti",
       position:"",
       imageColor:"",
       fontColors: [{
@@ -110,8 +111,8 @@ export default {
         ID: "3", name: "Silver With Burgundy", colour: "#827C7C", src: burgundysilvercorners
       }],
 
-      fontList: ["Bradley Hand", "Constantia Italic", "Elephant", "Harlow", "Juice", "Lucida Handwriting",
-        "Monotype Corsiva", "Pristina", "Script", "Viner Hand"],
+      fontList: ["Calligraffitti", "Dancing Script", "Delius Swash Caps", "Homemade Apple", "Junge",
+        "La Belle Aurore", "Patrick Hand", "Rochester", "Sue Ellen Francisco", "Waiting for the Sunshine"],
       positionList: [{
         name: "Center Top", location: "flex-start"
       },{
@@ -186,33 +187,53 @@ export default {
 }
 
 @font-face {
-  font-family: "Bradley Hand";
-  src: url("@/assets/fonts/BRADHI.ttf");
+  font-family: "Calligraffitti";
+  src: url("@/assets/fonts/Calligraffitti-Regular.ttf");
 }
 
 @font-face {
-  font-family: "Constantia Italic";
-  src: url("@/assets/fonts/Constantia-Italic.ttf");
+  font-family: "Dancing Script";
+  src: url("@/assets/fonts/DancingScript-Regular.ttf");
 }
 
 @font-face {
-  font-family: "Elephant";
-  src: url("@/assets/fonts/Elephant.ttf");
+  font-family: "Delius Swash Caps";
+  src: url("@/assets/fonts/DeliusSwashCaps-Regular.ttf");
 }
 
 @font-face {
-  font-family: "Harlow";
-  src: url("@/assets/fonts/Harlow.ttf");
+  font-family: "Homemade Apple";
+  src: url("@/assets/fonts/HomemadeApple-Regular.ttf");
 }
 
 @font-face {
-  font-family: "Pristina";
-  src: url("@/assets/fonts/Pristina.ttf");
+  font-family: "Junge";
+  src: url("@/assets/fonts/Junge-Regular.ttf");
 }
 
 @font-face {
-  font-family: "Script";
-  src: url("@/assets/fonts/Script.ttf");
+  font-family: "La Belle Aurore";
+  src: url("@/assets/fonts/LaBelleAurore-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Patrick Hand";
+  src: url("@/assets/fonts/PatrickHand-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Rochester";
+  src: url("@/assets/fonts/Rochester-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Sue Ellen Francisco";
+  src: url("@/assets/fonts/SueEllenFrancisco-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Waiting for the Sunshine";
+  src: url("@/assets/fonts/WaitingfortheSunrise-Regular.ttf");
 }
 
 </style>
